@@ -32,6 +32,7 @@
 ## Com esses passos, você terá o ambiente configurado e o servidor rodando.
 
 ## Contatos
-	[linkedIn](https://www.linkedin.com/in/emeson-borges-1539b3126/)
-    [Instagram](https://www.instagram.com/engemesonborges/)
-    
+- [LinkedIn](https://www.linkedin.com/in/emeson-borges-1539b3126/)
+
+- [Instagram](https://www.instagram.com/engemesonborges/)
+
