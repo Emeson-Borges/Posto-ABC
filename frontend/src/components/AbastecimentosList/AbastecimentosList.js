@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../AbastecimentosList/AbastecimentosList.css';
-import { FiCalendar } from "react-icons/fi";
-import { LiaMoneyBillWaveSolid } from "react-icons/lia";
-import { LuFileText } from "react-icons/lu";
-import { FiCornerDownLeft } from "react-icons/fi";
-import { CgAddR } from "react-icons/cg";
-import { CgArrowTopRight } from "react-icons/cg";
-import { CgServer } from "react-icons/cg";
-import { BsBarChart } from "react-icons/bs";
-
-
+import { FiCalendar } from 'react-icons/fi';
+import { LiaMoneyBillWaveSolid } from 'react-icons/lia';
+import { LuFileText } from 'react-icons/lu';
+import { FiCornerDownLeft } from 'react-icons/fi';
+import { CgAddR } from 'react-icons/cg';
+import { CgArrowTopRight } from 'react-icons/cg';
+import { CgServer } from 'react-icons/cg';
+import { BsBarChart } from 'react-icons/bs';
 
 const AbastecimentosList = () => {
   const [abastecimentos, setAbastecimentos] = useState([]);
@@ -77,6 +75,16 @@ const AbastecimentosList = () => {
       });
     } catch (error) {
       console.error('Erro ao criar abastecimento:', error.response?.data || error.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/abastecimentos/${id}/`);
+      const updatedAbastecimentos = abastecimentos.filter((abastecimento) => abastecimento.id !== id);
+      setAbastecimentos(updatedAbastecimentos);
+    } catch (error) {
+      console.error('Erro ao excluir abastecimento:', error);
     }
   };
 
@@ -168,19 +176,28 @@ const AbastecimentosList = () => {
             <th>Valor Abastecido <LiaMoneyBillWaveSolid /></th>
             <th>Imposto (13%) <CgArrowTopRight /></th>
             <th>Valor por Litro <BsBarChart /></th>
+            <th>Ações</th> {/* Coluna para botões de ação */}
           </tr>
         </thead>
         <tbody>
-        {abastecimentos.map((abastecimento) => (
-          <tr key={abastecimento.id}>
-            <td>{abastecimento.data}</td>
-            <td>{abastecimento.bomba?.tanque?.tipo_combustivel}</td>
-            <td>{abastecimento.bomba}</td>
-            <td>R$ {parseFloat(abastecimento.valor_abastecido).toFixed(2)}</td>
-            <td>R$ {parseFloat(abastecimento.imposto).toFixed(2)}</td>
-            <td>R$ {(abastecimento.valor_abastecido / abastecimento.quantidade_litros).toFixed(2)}</td>
-          </tr>
-        ))}
+          {abastecimentos.map((abastecimento) => {
+            const bomba = bombas.find(b => b.id === abastecimento.bomba);
+            const tanque = tanques.find(t => t.id === bomba?.tanque);
+
+            return (
+              <tr key={abastecimento.id}>
+                <td>{abastecimento.data}</td>
+                <td>{tanque?.tipo_combustivel}</td>
+                <td>{bomba?.bomba_utilizada}</td>
+                <td>R$ {parseFloat(abastecimento.valor_abastecido).toFixed(2)}</td>
+                <td>R$ {parseFloat(abastecimento.imposto).toFixed(2)}</td>
+                <td>R$ {(abastecimento.valor_abastecido / abastecimento.quantidade_litros).toFixed(2)}</td>
+                <td>
+                  <button onClick={() => handleDelete(abastecimento.id)}>Excluir</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 

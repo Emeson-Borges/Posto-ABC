@@ -37,7 +37,7 @@ const App = () => {
 
 const Home = () => (
   <div>
-    <h1>Bem-vindo ao Sistema de Gerenciamento!</h1>
+    <h1>Bem-vindo ao Sistema de Gerenciamento do Posto ABC!</h1>
   </div>
 );
 
