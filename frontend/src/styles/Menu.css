@@ -1,0 +1,26 @@
+/* Estilos para o menu de navegação */
+nav {
+    background-color: #333; /* Cor de fundo do menu */
+    padding: 10px; /* Espaçamento interno */
+  }
+  
+  nav ul {
+    list-style-type: none; /* Remove os marcadores de lista */
+    padding: 0;
+    display: flex; /* Mostra os itens de menu em linha */
+  }
+  
+  nav ul li {
+    margin-right: 20px; /* Espaçamento entre os itens do menu */
+  }
+  
+  nav ul li a {
+    color: white; /* Cor do texto dos links */
+    text-decoration: none; /* Remove sublinhado padrão dos links */
+    padding: 10px; /* Espaçamento interno dos links */
+  }
+  
+  nav ul li a:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+  }
+  
